@@ -6,8 +6,8 @@ export const mockAddProductParams = (): AddProductParams => ({
   name: faker.name.findName(),
   description: faker.name.findName(),
   category: faker.name.findName(),
-  price: faker.number(),
-  stock: faker.number()
+  price: 10.00,
+  stock: 10
 })
 
 export const mockProductModel = (): ProductModel => ({
@@ -15,6 +15,6 @@ export const mockProductModel = (): ProductModel => ({
   name: faker.name.findName(),
   description: faker.name.findName(),
   category: faker.name.findName(),
-  price: faker.number(),
-  stock: faker.number()
+  price: 10.00,
+  stock: 10
 })
