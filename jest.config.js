@@ -5,6 +5,8 @@ module.exports = {
     '!<rootDir>/src/main/**',
     '!<rootDir>/src/**/*-protocols.ts',
     '!**/protocols/**',
+    '!**/helpers/http/**',
+    '!**/errors/**',
     '!**/index.ts',
     '!**/test/**'
   ],
