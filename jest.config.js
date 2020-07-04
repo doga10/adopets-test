@@ -5,6 +5,7 @@ module.exports = {
     '!<rootDir>/src/main/**',
     '!<rootDir>/src/**/*-protocols.ts',
     '!**/protocols/**',
+    '!**/index.ts',
     '!**/test/**'
   ],
   coverageDirectory: 'coverage',
