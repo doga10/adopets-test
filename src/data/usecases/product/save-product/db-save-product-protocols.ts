@@ -1,0 +1,5 @@
+export * from '@/domain/usecases/product/save-product'
+export * from '@/domain/models/product'
+export * from '@/data/protocols/db/product/save-product-repository'
+export * from '@/data/protocols/db/product/load-product-by-id-repository'
+export * from '@/domain/usecases/product/save-product'
