@@ -26,6 +26,11 @@ This API is the adopets selection process.
     - email
     - password
 
+* POST /api/logout (`curl --header "x-access-token: token" -H "Content-Type: application/json" -X POST http://localhost:5050/api/logout`)
+  * body
+    - email
+    - password
+
 * POST /api/products (`curl -d '{"name":"name","description":"description","category":"category","price":10.00,"stock":10}' --header "x-access-token: token" -H "Content-Type: application/json" -X POST http://localhost:5050/api/products`)
   * headers
     - token

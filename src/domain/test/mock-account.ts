@@ -20,3 +20,7 @@ export const mockAuthenticationParams = (): AuthenticationParams => ({
   email: faker.internet.email(),
   password: faker.internet.password()
 })
+
+export const mockLogoutParams = (): any => ({
+  accountId: faker.random.uuid()
+})
