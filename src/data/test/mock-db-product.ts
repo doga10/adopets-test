@@ -2,10 +2,12 @@ import { AddProductRepository } from '@/data/protocols/db/product/add-product-re
 import { LoadProductByIdRepository } from '@/data/protocols/db/product/load-product-by-id-repository'
 import { AddProductParams } from '@/domain/usecases/product/add-product'
 import { ProductModel } from '@/domain/models/product'
-import { mockProductModel } from '@/domain/test'
+import { mockProductModel, mockProductsModel } from '@/domain/test'
 import { SaveProductRepository } from '../protocols/db/product/save-product-repository'
 import { SaveProductParams } from '../usecases/product/save-product/db-save-product-protocols'
 import { DeleteProductRepository } from '../protocols/db/product/delete-product-repository'
+import { LoadProductsRepository } from '../protocols/db/product/load-products-repository'
+import { QueryStringParams, Paginate } from '../usecases/product/load-products/db-load-products-protocols'
 
 export class AddProductRepositorySpy implements AddProductRepository {
   productModel = mockProductModel()
@@ -23,6 +25,18 @@ export class LoadProductByIdRepositorySpy implements LoadProductByIdRepository {
 
   async loadById (id: string): Promise<ProductModel> {
     this.id = id
+    return this.productModel
+  }
+}
+
+export class LoadProductsRepositorySpy implements LoadProductsRepository {
+  productModel = mockProductsModel()
+  params: QueryStringParams
+  paginate: Paginate
+
+  async load (params: QueryStringParams, paginate: Paginate): Promise<ProductModel[]> {
+    this.params = params
+    this.paginate = paginate
     return this.productModel
   }
 }

@@ -6,9 +6,9 @@ import request from 'supertest'
 let productCollection: Collection
 const mockProductId = async (): Promise<string> => {
   const res = await productCollection.insertOne({
-    name: 'Rodrigo',
-    description: 'rodrigo.manguinho@gmail.com',
-    category: 'rodrigo.manguinho@gmail.com',
+    name: 'Douglas',
+    description: 'douglasdennys45@gmail.com',
+    category: 'douglasdennys45@gmail.com',
     price: 12.50,
     stock: 50
   })
@@ -27,6 +27,23 @@ describe('Product Routes', () => {
   beforeEach(async () => {
     productCollection = await MongoHelper.getCollection('products')
     await productCollection.deleteMany({})
+  })
+
+  describe('GET /products', () => {
+    test('Should return 200 on load products with valid', async () => {
+      await mockProductId()
+      await mockProductId()
+
+      await request(app)
+        .get('/api/products/?page=1&limit=10')
+        .expect(200)
+    })
+
+    test('Should return 204 on load products with valid', async () => {
+      await request(app)
+        .get('/api/products/?page=1&limit=10')
+        .expect(204)
+    })
   })
 
   describe('POST /products', () => {

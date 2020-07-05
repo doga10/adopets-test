@@ -23,6 +23,39 @@ describe('ProductMongoRepository', () => {
     return new ProductMongoRepository()
   }
 
+  describe('load()', () => {
+    test('Should load all products on success', async () => {
+      const addProductModels = [mockAddProductParams(), mockAddProductParams()]
+      await productCollection.insertMany(addProductModels)
+      const sut = makeSut()
+      const products = await sut.load({}, { page: 1, limit: 10 })
+
+      expect(products[0].id).toBeTruthy()
+      expect(products[0].name).toBe(addProductModels[0].name)
+      expect(products[0].description).toBe(addProductModels[0].description)
+      expect(products[0].category).toBe(addProductModels[0].category)
+      expect(products[0].price).toBe(addProductModels[0].price)
+      expect(products[0].stock).toBe(addProductModels[0].stock)
+      expect(products[1].id).toBeTruthy()
+      expect(products[1].name).toBe(addProductModels[1].name)
+      expect(products[1].description).toBe(addProductModels[1].description)
+      expect(products[1].category).toBe(addProductModels[1].category)
+      expect(products[1].price).toBe(addProductModels[1].price)
+      expect(products[1].stock).toBe(addProductModels[1].stock)
+      expect(products.length).toBe(2)
+
+      const products2 = await sut.load({}, { page: 1, limit: 1 })
+      expect(products2[0].id).toBeTruthy()
+      expect(products2.length).toBe(1)
+    })
+
+    test('Should load empty list', async () => {
+      const sut = makeSut()
+      const products = await sut.load({}, { page: 1, limit: 10 })
+      expect(products.length).toBe(0)
+    })
+  })
+
   describe('add()', () => {
     test('Should return an product on success', async () => {
       const sut = makeSut()
