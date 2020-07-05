@@ -3,6 +3,8 @@ import { LoadProductByIdRepository } from '@/data/protocols/db/product/load-prod
 import { AddProductParams } from '@/domain/usecases/product/add-product'
 import { ProductModel } from '@/domain/models/product'
 import { mockProductModel } from '@/domain/test'
+import { SaveProductRepository } from '../protocols/db/product/save-product-repository'
+import { SaveProductParams } from '../usecases/product/save-product/db-save-product-protocols'
 
 export class AddProductRepositorySpy implements AddProductRepository {
   productModel = mockProductModel()
@@ -19,6 +21,18 @@ export class LoadProductByIdRepositorySpy implements LoadProductByIdRepository {
   id: string
 
   async loadById (id: string): Promise<ProductModel> {
+    this.id = id
+    return this.productModel
+  }
+}
+
+export class SaveProductRepositorySpy implements SaveProductRepository {
+  productParams: SaveProductParams
+  id: string
+  productModel = mockProductModel()
+
+  async save (id: string, data: SaveProductParams): Promise<ProductModel> {
+    this.productParams = data
     this.id = id
     return this.productModel
   }

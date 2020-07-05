@@ -52,4 +52,21 @@ describe('Product Routes', () => {
         .expect(200)
     })
   })
+
+  describe('PUT /products/:productId', () => {
+    test('Should return 200 on save product with valid', async () => {
+      const productId = await mockProductId()
+
+      await request(app)
+        .put('/api/products/' + productId)
+        .send({
+          name: 'name',
+          description: 'description2',
+          category: 'category2',
+          price: 10.00,
+          stock: 100
+        })
+        .expect(200)
+    })
+  })
 })

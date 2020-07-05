@@ -17,4 +17,10 @@ export class ProductMongoRepository implements AddProductRepository, LoadProduct
     const result = await productCollection.findOne({ _id: new ObjectId(id) })
     return result && MongoHelper.map(result)
   }
+
+  async save (id: string, data: AddProductParams): Promise<any> {
+    const productCollection = await MongoHelper.getCollection('products')
+    const product = await productCollection.findOneAndUpdate({ _id: new ObjectId(id) }, { $set: data }, { returnOriginal: true })
+    return product
+  }
 }

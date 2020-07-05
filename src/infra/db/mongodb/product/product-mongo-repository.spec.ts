@@ -1,7 +1,7 @@
 import { ProductMongoRepository } from './product-mongo-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { mockAddProductParams } from '@/domain/test'
-import { Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 
 let productCollection: Collection
 
@@ -51,6 +51,29 @@ describe('ProductMongoRepository', () => {
       expect(product.category).toBe(addProductParams.category)
       expect(product.price).toBe(addProductParams.price)
       expect(product.stock).toBe(addProductParams.stock)
+    })
+  })
+
+  describe('save()', () => {
+    test('Should update product result if success', async () => {
+      const addProductParams = mockAddProductParams()
+      const res = await productCollection.insertOne(addProductParams)
+
+      const sut = makeSut()
+      await sut.save(res.ops[0]._id, {
+        name: 'string',
+        description: 'string',
+        category: 'string',
+        price: 10,
+        stock: 10
+      })
+      const productResult = await productCollection
+        .find({
+          _id: new ObjectId(res.ops[0]._id)
+        })
+        .toArray()
+      expect(productResult).toBeTruthy()
+      expect(productResult.length).toBe(1)
     })
   })
 })
