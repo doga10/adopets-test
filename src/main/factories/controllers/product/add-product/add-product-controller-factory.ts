@@ -3,8 +3,9 @@ import { makeDbAddProduct } from '@/main/factories/usecases/product/add-product/
 import { Controller } from '@/presentation/protocols'
 import { AddProductController } from '@/presentation/controllers/product/add-product/add-product-controller'
 import { makeLogControllerDecorator } from '@/main/factories/decorators/log-controller-decorator-factory'
+import { makeAccessControllerDecorator } from '@/main/factories/decorators/access-controller-decorator-factory'
 
 export const makeAddProductController = (): Controller => {
   const controller = new AddProductController(makeAddProductValidation(), makeDbAddProduct())
-  return makeLogControllerDecorator(controller)
+  return makeAccessControllerDecorator(makeLogControllerDecorator(controller))
 }

@@ -11,7 +11,12 @@ export const adaptRoute = (controller: Controller) => {
         page: req.query.page,
         limit: req.query.limit
       },
-      accountId: req.accountId
+      accountId: req.accountId,
+      access: {
+        url: req.url,
+        ip: req.ip,
+        date: new Date()
+      }
     }
     const httpResponse = await controller.handle(httpRequest)
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {

@@ -10,4 +10,5 @@ export type HttpRequest = {
   query?: any
   paginate?: any
   accountId?: any
+  access?: any
 }
