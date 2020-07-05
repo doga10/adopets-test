@@ -10,7 +10,8 @@ export const adaptRoute = (controller: Controller) => {
       paginate: {
         page: req.query.page,
         limit: req.query.limit
-      }
+      },
+      accountId: req.accountId
     }
     const httpResponse = await controller.handle(httpRequest)
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {

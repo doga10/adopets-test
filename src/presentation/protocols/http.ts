@@ -9,4 +9,5 @@ export type HttpRequest = {
   params?: any
   query?: any
   paginate?: any
+  accountId?: any
 }
