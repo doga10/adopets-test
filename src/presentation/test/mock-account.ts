@@ -5,6 +5,7 @@ import { AccountModel } from '@/domain/models/account'
 import { AuthenticationModel } from '@/domain/models/authentication'
 import { mockAccountModel } from '@/domain/test'
 import faker from 'faker'
+import { Logout } from '../controllers/login/logout/logout-controller-protocols'
 
 export class AddAccountSpy implements AddAccount {
   accountModel = mockAccountModel()
@@ -26,6 +27,14 @@ export class AuthenticationSpy implements Authentication {
   async auth (authenticationParams: AuthenticationParams): Promise<AuthenticationModel> {
     this.authenticationParams = authenticationParams
     return this.authenticationModel
+  }
+}
+
+export class LogoutSpy implements Logout {
+  id: string
+
+  async logout (id: string): Promise<void> {
+    this.id = id
   }
 }
 
