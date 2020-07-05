@@ -54,6 +54,16 @@ describe('ProductMongoRepository', () => {
     })
   })
 
+  describe('delete()', () => {
+    test('Should return an product on success', async () => {
+      const sut = makeSut()
+      const addProductParams = mockAddProductParams()
+      const res = await productCollection.insertOne(addProductParams)
+      const product = await sut.delete(res.ops[0]._id.toString())
+      expect(product).toBeFalsy()
+    })
+  })
+
   describe('save()', () => {
     test('Should update product result if success', async () => {
       const addProductParams = mockAddProductParams()

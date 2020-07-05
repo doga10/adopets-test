@@ -69,4 +69,13 @@ describe('Product Routes', () => {
         .expect(200)
     })
   })
+
+  describe('DELETE /products/:productId', () => {
+    test('Should return 204 on delete product with valid', async () => {
+      const productId = await mockProductId()
+      await request(app)
+        .delete('/api/products/' + productId)
+        .expect(204)
+    })
+  })
 })

@@ -3,6 +3,7 @@ import { LoadProductById } from '@/domain/usecases/product/load-product-by-id'
 import { ProductModel } from '@/domain/models/product'
 import { mockProductModel } from '@/domain/test'
 import { SaveProduct, SaveProductParams } from '../controllers/product/save-product/save-product-controller-protocols'
+import { DeleteProduct } from '@/domain/usecases/product/delete-product'
 
 export class AddProductSpy implements AddProduct {
   productModel = mockProductModel()
@@ -11,6 +12,14 @@ export class AddProductSpy implements AddProduct {
   async add (data: AddProductParams): Promise<ProductModel> {
     this.addProductParams = data
     return this.productModel
+  }
+}
+
+export class DeleteProductSpy implements DeleteProduct {
+  id: string
+
+  async delete (id: string): Promise<void> {
+    this.id = id
   }
 }
 
