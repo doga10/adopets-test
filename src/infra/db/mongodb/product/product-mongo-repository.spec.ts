@@ -49,6 +49,25 @@ describe('ProductMongoRepository', () => {
       expect(products2.length).toBe(1)
     })
 
+    test('Should load all products by params on success', async () => {
+      const addProductModels = [mockAddProductParams(), mockAddProductParams()]
+      await productCollection.insertMany(addProductModels)
+      const sut = makeSut()
+      const products = await sut.load({ name: addProductModels[0].name }, { page: 1, limit: 10 })
+
+      expect(products[0].id).toBeTruthy()
+      expect(products[0].name).toBe(addProductModels[0].name)
+      expect(products[0].description).toBe(addProductModels[0].description)
+      expect(products[0].category).toBe(addProductModels[0].category)
+      expect(products[0].price).toBe(addProductModels[0].price)
+      expect(products[0].stock).toBe(addProductModels[0].stock)
+      expect(products.length).toBe(1)
+
+      const products2 = await sut.load({}, { page: 1, limit: 1 })
+      expect(products2[0].id).toBeTruthy()
+      expect(products2.length).toBe(1)
+    })
+
     test('Should load empty list', async () => {
       const sut = makeSut()
       const products = await sut.load({}, { page: 1, limit: 10 })
